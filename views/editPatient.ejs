@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<title>Dr.House - Edit</title>
+	<%- include('partials/headHtml') %>
+
+</head>
+
+<body>
+
+	<%- include('partials/navBar', {active: 'doctor'}) %>
+
+	<!-- END nav -->
+
+	<section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_1.jpg');"
+		data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row no-gutters slider-text align-items-center justify-content-center">
+				<div class="col-md-9 ftco-animate text-center">
+					<h1 class="mb-2 bread">Edit Page</h1>
+					<p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i
+									class="ion-ios-arrow-forward"></i></a></span> <span>Edit Page <i
+								class="ion-ios-arrow-forward"></i></span></p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row">
+
+				<h1>My Account / Edit Patient</h1>
+				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+					industry's printer took a galley of type and scrambled it to make a type specimen patient. It has
+					survived
+					not only fiveLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem </p>
+				<div class="form">
+					<form>
+						<div class="form-group">
+							<label for="patientTitleInp">Patient Title</label>
+							<input type="text" class="form-control" id="patientTitleInp" placeholder="patient Title" value="<%= patient.title %>">
+						</div>
+						<div class="form-group">
+							<label for="exampleFormControlFile1">Patient Images</label>
+							<div class="row">
+								<%for (let i = 0; i < patient.imgs.length; i++) { %>
+								<div class="col-md-3">
+									<a href="#" class="deleteImg">X</a>
+									<img width="300" height="400" class="patientimg" src="<%= patient.imgs[i] %>" alt="">
+
+								</div>
+								<% } %>
+							</div>
+							<input type="file" class="form-control-file" multiple id="patientImgsInp"
+								accept="image/x-png,image/gif,image/jpeg">
+						</div>
+						<div class="form-group">
+							<label for="exampleFormControlFile1">Patient PDF</label>
+							<span class="badge badge-default"><%= patient.pdfUrl.substr(patient.pdfUrl.lastIndexOf('/') + 1) %> <a href="#" id="deletePdf">X</a></span>
+							<!-- when I want to disabled patientPdf , just write disabled like down -->
+							<input type="file" class="form-control-file" id="patientPdfInp" accept="application/pdf" disabled>
+						</div>
+						<div class="form-group">
+							<label for="patientDescriptionInp">Patient Description</label>
+							<textarea class="form-control" id="patientDescriptionInp"><%= patient.description %></textarea>
+						</div>
+						<button class="btn btn-success mt-3" style="width: 150px;" id="patientSaveBtn">SAVE</button>
+					</form>
+				</div>
+
+			</div>
+
+		</div>
+	</section>
+
+	<!-- footer start -->
+
+	<%- include('partials/footer') %>
+
+	<!-- footer end -->
+
+	<!-- Modal start -->
+
+	<div class="modal" tabindex="-1" role="dialog" id="resultModal">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Modal title</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>Modal body text goes here.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal end -->
+
+
+
+	<!-- loader -->
+
+	<%- include('partials/loaderJs') %>
+
+	<script src="/tinymce/tinymce.min.js"></script>
+
+	<script>
+		tinymce.init({
+
+			selector: '#patientDescriptionInp',
+			/* theme of the editor */
+			theme: "silver",
+			skin: "oxide-dark",
+
+			/* width and height of the editor */
+			width: "100%",
+			height: 300,
+
+			/* display statusbar */
+			statubar: true,
+
+			/* plugin */
+			plugins: [
+				"advlist autolink link image lists charmap print preview hr anchor pagebreak",
+				"searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+				"save table contextmenu directionality emoticons template paste textcolor"
+			],
+
+			/* toolbar */
+			toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons",
+
+			/* style */
+			style_formats: [{
+					title: "Headers",
+					items: [{
+							title: "Header 1",
+							format: "h1"
+						},
+						{
+							title: "Header 2",
+							format: "h2"
+						},
+						{
+							title: "Header 3",
+							format: "h3"
+						},
+						{
+							title: "Header 4",
+							format: "h4"
+						},
+						{
+							title: "Header 5",
+							format: "h5"
+						},
+						{
+							title: "Header 6",
+							format: "h6"
+						}
+					]
+				},
+				{
+					title: "Inline",
+					items: [{
+							title: "Bold",
+							icon: "bold",
+							format: "bold"
+						},
+						{
+							title: "Italic",
+							icon: "italic",
+							format: "italic"
+						},
+						{
+							title: "Underline",
+							icon: "underline",
+							format: "underline"
+						},
+						{
+							title: "Strikethrough",
+							icon: "strikethrough",
+							format: "strikethrough"
+						},
+						{
+							title: "Superscript",
+							icon: "superscript",
+							format: "superscript"
+						},
+						{
+							title: "Subscript",
+							icon: "subscript",
+							format: "subscript"
+						},
+						{
+							title: "Code",
+							icon: "code",
+							format: "code"
+						}
+					]
+				},
+				{
+					title: "Blocks",
+					items: [{
+							title: "Paragraph",
+							format: "p"
+						},
+						{
+							title: "Blockquote",
+							format: "blockquote"
+						},
+						{
+							title: "Div",
+							format: "div"
+						},
+						{
+							title: "Pre",
+							format: "pre"
+						}
+					]
+				},
+				{
+					title: "Alignment",
+					items: [{
+							title: "Left",
+							icon: "alignleft",
+							format: "alignleft"
+						},
+						{
+							title: "Center",
+							icon: "aligncenter",
+							format: "aligncenter"
+						},
+						{
+							title: "Right",
+							icon: "alignright",
+							format: "alignright"
+						},
+						{
+							title: "Justify",
+							icon: "alignjustify",
+							format: "alignjustify"
+						}
+					]
+				}
+			]
+		});
+
+
+
+		document.querySelectorAll('.deleteImg').forEach(element => {
+			element.addEventListener('click', e => {
+				e.preventDefault()
+				e.target.parentElement.remove()
+			})
+		})
+
+		document.querySelector('#deletePdf').addEventListener('click', e => {
+			e.preventDefault()
+			e.target.parentElement.remove()
+			// enable pdf file upload
+			document.querySelector('#patientPdfInp').disabled = false
+		})
+
+		//  the last two code I can write like down in one code '.deleteImg, #deletePdf'
+		//     document.querySelectorAll('.deleteImg, #deletePdf').forEach(element => {
+		//     element.addEventListener('click', e => {
+		//         e.preventDefault()
+		//         e.target.parentElement.remove()
+		//     })
+		// }) 
+
+		document.querySelector('#patientSaveBtn').addEventListener('click', e => {
+			e.preventDefault()
+			const patientTitle = document.querySelector('#patientTitleInp').value.trim()
+			if (!patientTitle) {
+				showModal(true, 'Patient Title is empty', 'Patient Title should not be empty')
+				// return gonna stop the function if the patient title is empty
+				return
+			}
+			const oldImgsElements = document.querySelectorAll('.patientimg')
+			const newPatientImgs = document.querySelector('#patientImgsInp').files
+			// check if the user upload images or left some old images
+			if (oldImgsElements.length == 0 && newPatientImgs.length == 0) {
+				showModal(true, 'images Error', 'you can not save your patient wihout images')
+				return
+			}
+			const deletePdf = document.querySelector('#deletePdf')
+			const patientPdf = document.querySelector('#patientPdfInp').files
+
+			// check if the user upload or left the pdf file
+			if (!deletePdf && patientPdf.length == 0) {
+				showModal(true, 'Pdf Error', 'you need either to upload a pdf file or to leave the old one')
+				return
+			}
+			// collect the data to be send to the server side // we use FormData to send files, and use for fetch
+			const fd = new FormData() 
+			// add patient id to fd
+			//debugger
+			fd.append('patientid', '<%= patient.id %>')
+			fd.append('newPatientTitle', patientTitle)
+			// collect old images urls
+			const oldImgsArr = []
+			oldImgsElements.forEach(img => {
+				oldImgsArr.push(img.src)
+			})
+			// convert oldImgsArr to string to be able add it in fd
+			// because FormDAta accept only strings
+			fd.append('oldImgsUrls', JSON.stringify(oldImgsArr))
+
+			// add new patient images to fd
+			for (let i = 0; i < newPatientImgs.length; i++) {
+				fd.append('patientImg' + i, newPatientImgs[i])
+
+			}
+
+			// add the upload pdf file to fd IF exist
+			if (patientPdf.length) {
+				fd.append('patientPdf', patientPdf[0])
+			}
+			fd.append('patientDescription', tinymce.get('patientDescriptionInp').getContent())
+			// for disable save btn also look in public/js/custom.js
+			// disable save btn just this line down (btnWait(e.target, true, 'Saving...'))
+			btnWait(e.target, true, 'Saving...')
+			fetch('/admin/editPatient', {
+				method: 'POST',
+				body: fd
+			}).then(response => {
+				btnWait(e.target, false, 'Save') // disable save btn
+				if (response.status == 200) {
+					response.json().then(data => {
+						if (data === 1) {
+							showModal(false, 'success update', 'your patient updated successfuly')
+						} else {
+							showModal(true, 'server error', 'call the admin because of this error')
+						}
+					}).catch(error => {
+						showModal(true, 'Server error', 'Call the admin because of this error')
+					})
+				} else {
+					showModal(true, 'Error', 'can not send the data')
+				}
+			}).catch(error => {
+				showModal(true, 'Error', 'can not send the data')
+				btnWait(e.target, false, 'Save') // disable save btn
+			})
+
+		})
+
+
+
+		// document.querySelector('#patientSaveBtn').addEventListener('click', e => {
+		//     e.preventDefault()
+		//     const patientTitle = document.querySelector('#patientTitleInp').value
+		//     const patientDescription = tinymce.get('patientDescriptionInp').getContent();
+
+		//     const patientImgs = document.querySelector('#patientImgsInp').files
+		//     const patientPdf = document.querySelector('#patientPdfInp').files[0]
+
+
+		//     // console.log(patientTitle);
+		//     // console.log(patientDescription);
+		//     // console.log(patientImgs);
+		//     // console.log(patientPdf);
+
+		//     const fd = new FormData()
+		//     fd.append('patientTitle', patientTitle)
+		//     fd.append('patientDescription', patientDescription)
+		//     for (let i = 0; i < patientImgs.length; i++) {        
+		//         fd.append('patientImg' + i, patientImgs[i])
+		//     }        
+
+		//     fd.append('patientPdf', patientPdf)
+		//     console.log(fd)  
+
+		//     // send fd to server side using fetch
+
+		//     // or fetch('/admin/addpatient', {
+		//     let url = '/admin/addpatient'
+		//     fetch (url, {    
+		//         method: 'POST',
+		//         body: fd
+		//     }).then(response => {
+		//         //code here to show modal
+		//         //if response data was 1
+		//         //show success modal and clear the inputs
+		//         //else if it was 2
+		//         // show error modal missing some entries
+
+		//         //check if response is ok
+		//         if(response.status == 200) {
+		//             //get response data
+		//             response.json().then(data => {
+		//                 switch (data) {
+		//                     case 1:
+		//                         showModal(false, 'success', 'the patient saved correctly and it will be shown in patients gallery')
+		//                         document.querySelector('#patientTitleInp').value = ''
+		//                         tinymce.get('patientDescriptionInp').setContent('')
+		//                         document.querySelector('#patientImgsInp').value = ''
+		//                         document.querySelector('#patientPdfInp').value = ''
+		//                         break;
+		//                     case 2:
+		//                         showModal(true, 'Error', 'some enteries is missing, make sure to enter all required data')
+		//                         break;
+		//                     case 3:
+		//                         showModal(true, 'patient title is exist', 'patient title is exist, please type another patient title')
+		//                         break;
+		//                     default:
+		//                         break;
+		//                 }
+		//             }).catch(error => {
+		//                 showModal(true, 'Error', 'unkown response format')
+		//             })
+		//         } else {
+		//             showModal(true, 'Error', 'could not send the data')
+		//         }        
+
+		//     }).catch(error => {
+		//         showModal(true, 'Error', 'can not send the data')
+		//     }) 
+
+		// })
+	</script>
+
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<title>Dr.House - Our Patients</title>
+	<%- include('partials/headHtml') %>
+
+</head>
+
+<body>
+
+	<%- include('partials/navBar', {active: 'doctor'}) %>
+
+	<!-- END nav -->
+
+	<section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_1.jpg');"
+		data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row no-gutters slider-text align-items-center justify-content-center">
+				<div class="col-md-9 ftco-animate text-center">
+					<h1 class="mb-2 bread">Patient</h1>
+					<p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Our Patients <i class="ion-ios-arrow-forward"></i></span></p>
+				</div>
+			</div>
+		</div>
+	</section>
+ 
+	<!-- Check this code !!!! start -->
+	<div class="breadcrumb">
+        <div class="container">
+            <a class="breadcrumb-item" href="/">Home</a>
+            <span class="breadcrumb-item active">Our Patients</span>
+        </div>
+	</div>
+	
+	<!-- Check this code !!!! end -->
+	<!-- class="static about-sec" -->
+	<section class="ftco-section">
+		<div class="recent-book-sec"></div>
+		    <div class="container">
+			<h1>Our Patients</h1>
+			<div class="row">
+                <% for( let i = 0; i < patients.length; i++ ) { %>
+					<div class="col-md-3">
+						<div class="item">
+							<img width="200" class="patientimage" src="<%= patients[i].imgs[0] %>" alt="img">
+							<h3><a href="/patient/<%= patients[i].title.trim().replace(/ /g, '_') %>/<%= patients[i].id %>"><%= patients[i].title %></a></h3>
+							<h6><a class="btn btn-secondary" href="/patient/<%= patients[i].title.trim().replace(/ /g, '_') %>/<%= patients[i].id %>">DOWNLOAD</a></h6>
+						</div>
+					</div>
+				<% } %>
+			</div>
+			<div class="btn-sec">
+			<button class="btn btn-info">LOAD MORE PATIENTS...</button>
+			</div>
+		    </div>
+		</div>
+	</section>
+
+	<!-- footer start -->
+
+	<%- include('partials/footer') %>
+
+	<!-- footer end -->
+
+	<!-- loader -->
+
+	<%- include('partials/loaderJs') %>
+
+	
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <title>Dr.House - Admin</title>
+	<%- include('partials/headHtml') %>
+	
+  </head>
+
+  <body>
+
+    <!-- Start nav -->
+
+    <%- include('partials/navBar', {active: 'single-blog'}) %>
+	
+    <!-- END nav -->
+    
+    <section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_1.jpg');" data-stellar-background-ratio="0.5">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center">
+            <h1 class="mb-2 bread">Admin page</h1>
+            <p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Admin <i class="ion-ios-arrow-forward"></i></span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+		
+  
+    <section class="slider">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12" style="text-align:center;">
+            <h2>Welcome <%= email %></h2>
+            <a href="/admin/addPatient" class="btn btn-info" style="width: 150px;">Add Patient</a>
+            <br>
+            <br>
+            <a href="/admin/myPatients" class="btn btn-info" style="width: 150px;">My Patient</a>
+            <br>
+            <br>
+            <a href="/admin/logout" class="btn btn-info" style="width: 150px;">Logout</a>
+            <br>
+            <br>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+	<!-- footer start -->
+	
+	<%- include('partials/footer') %>
+
+  <!-- footer end -->
+  
+  <!-- loader -->
+
+  <%- include('partials/loaderJs') %>
+
+      
+  </body>
+</html>

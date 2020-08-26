@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<title>Dr.House - Patient</title>
+	<%- include('partials/headHtml') %>
+
+</head>
+
+<body>
+
+	<%- include('partials/navBar', {active: 'doctor'}) %>
+
+	<!-- END nav -->
+
+	<section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_1.jpg');"
+		data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row no-gutters slider-text align-items-center justify-content-center">
+				<div class="col-md-9 ftco-animate text-center">
+					<h1 class="mb-2 bread">Patient</h1>
+					<p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i
+									class="ion-ios-arrow-forward"></i></a></span> <span>Patient <i
+								class="ion-ios-arrow-forward"></i></span></p>
+				</div>
+			</div>
+		</div>
+	</section>
+ 
+	<!-- Check this code !!!! start -->
+	<div class="breadcrumb">
+        <div class="container">
+            <a class="breadcrumb-item" href="/">Home</a>
+            <span class="breadcrumb-item active"><%=patient.title%></span>
+        </div>
+	</div>
+	
+	<!-- Check this code !!!! end -->
+
+	<section class="ftco-section">
+		<div class="container">
+			<h1><%= patient.title %></h1>
+			<div class="row">
+                <div class="col-md-6 slider-sec">
+                    <!-- main slider carousel -->
+                    <div id="myCarousel" class="carousel slide">
+                        <!-- main slider carousel items -->
+                        <div class="carousel-inner">
+							<%for (let i = 0; i < patient.imgs.length; i++) {%> 
+								<div class="<%= i == 0 ? 'active' : '' %> item carousel-item" data-slide-number="<%= i %>">
+									<img width="500" src="<%=patient.imgs[i]%>" class="img-fluid">
+								</div>
+							<% } %> 
+                            
+                        </div>
+                        <!-- main slider carousel nav controls -->
+                        <ul class="carousel-indicators list-inline">
+						   <%for (let i = 0; i < patient.imgs.length; i++) {%>
+							<li class="list-inline-item <%= i == 0 ? 'active' : '' %>">
+								<a id="carousel-selector-0" class="<%= i == 0 ? 'selected' : '' %>" data-slide-to="<%= i %>" data-target="#myCarousel">
+								<img width="100" src="<%=patient.imgs[i]%>" class="img-fluid">
+								</a>
+							</li> 
+						<% } %> 
+                        </ul>
+                    </div>                    
+				</div>
+				<!--/main slider carousel-->
+				<div class="col-md-6 slider-content">
+                   <%- patient.description %> 
+                    <div class="btn-sec">
+						<% if (checkLogin) {%>                         
+						<a href="<%=patient.pdfUrl%>" target="_blank" class="btn btn-secondary">DOWNLOAD</a>
+						<% } else {%>                   
+                            <a href="/login" class="btn btn-secondary">LOGIN FOR DOWNLOAD</a>
+                        <% } %> 
+                    </div>
+                </div>
+
+			</div>
+
+		</div>
+	</section>
+
+	<!-- footer start -->
+
+	<%- include('partials/footer') %>
+
+	<!-- footer end -->
+
+	<!-- loader -->
+
+	<%- include('partials/loaderJs') %>
+
+	
+</body>
+
+</html>
